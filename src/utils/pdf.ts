@@ -264,7 +264,7 @@ export async function mergePages(
         y: 20,
         size: fontSize,
         font,
-        color: { type: "RGB", red: 0, green: 0, blue: 0 },
+        color: rgb(0, 0, 0),
       });
     }
 
@@ -280,7 +280,7 @@ export async function mergePages(
         y: height / 2 - textHeight / 2,
         size: fontSize,
         font,
-        color: { type: "RGB", red: 0.8, green: 0.8, blue: 0.8 },
+        color: rgb(0.8, 0.8, 0.8),
         opacity: 0.5,
         rotate: degrees(45),
       });

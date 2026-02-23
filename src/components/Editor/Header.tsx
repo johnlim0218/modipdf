@@ -13,7 +13,9 @@ export default function Header() {
     setIsExporting(true);
     try {
       const mergedPdfBytes = await mergePages(pages);
-      const blob = new Blob([mergedPdfBytes], { type: "application/pdf" });
+      const blob = new Blob([mergedPdfBytes as BlobPart], {
+        type: "application/pdf",
+      });
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
