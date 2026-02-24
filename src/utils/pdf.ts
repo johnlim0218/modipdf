@@ -10,6 +10,19 @@ async function getPdfJs() {
   return pdfjs;
 }
 
+export interface EditorElement {
+  id: string;
+  type: "text" | "image" | "rect" | "circle" | "sign";
+  x: number;
+  y: number;
+  width?: number;
+  height?: number;
+  content?: string; // For text or image URL
+  style?: Record<string, any>;
+  pageId: string;
+  points?: { x: number; y: number }[][]; // For sign tool (array of strokes)
+}
+
 export interface PageItem {
   id: string;
   file?: File;
@@ -167,8 +180,61 @@ export interface PdfMetadata {
   watermark?: string;
 }
 
+function hexToPdfRgb(hex: string) {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result
+    ? rgb(
+        parseInt(result[1], 16) / 255,
+        parseInt(result[2], 16) / 255,
+        parseInt(result[3], 16) / 255,
+      )
+    : rgb(0, 0, 0);
+}
+
+function parsePdfColor(colorStr: string | undefined): {
+  color: ReturnType<typeof rgb>;
+  opacity: number;
+} {
+  if (!colorStr) return { color: rgb(0, 0, 0), opacity: 1 };
+
+  if (colorStr.startsWith("#")) {
+    return { color: hexToPdfRgb(colorStr), opacity: 1 };
+  }
+
+  if (colorStr.startsWith("rgba")) {
+    const match = colorStr.match(/rgba\((\d+),\s*(\d+),\s*(\d+),\s*([\d.]+)\)/);
+    if (match) {
+      return {
+        color: rgb(
+          parseInt(match[1]) / 255,
+          parseInt(match[2]) / 255,
+          parseInt(match[3]) / 255,
+        ),
+        opacity: parseFloat(match[4]),
+      };
+    }
+  }
+
+  if (colorStr.startsWith("rgb")) {
+    const match = colorStr.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
+    if (match) {
+      return {
+        color: rgb(
+          parseInt(match[1]) / 255,
+          parseInt(match[2]) / 255,
+          parseInt(match[3]) / 255,
+        ),
+        opacity: 1,
+      };
+    }
+  }
+
+  return { color: rgb(0, 0, 0), opacity: 1 };
+}
+
 export async function mergePages(
   pages: PageItem[],
+  elements?: Record<string, EditorElement[]>,
   metadata?: PdfMetadata,
 ): Promise<Uint8Array> {
   const mergedPdf = await PDFDocument.create();
@@ -243,7 +309,114 @@ export async function mergePages(
       copiedPage.setRotation(degrees(existingRotation + pageItem.rotation));
     }
 
-    mergedPdf.addPage(copiedPage);
+    const page = mergedPdf.addPage(copiedPage);
+
+    // Draw annotations/elements
+    if (elements && elements[pageItem.id]) {
+      const { height: pageHeight } = page.getSize();
+
+      for (const el of elements[pageItem.id]) {
+        if (el.type === "text" && el.content) {
+          const { color, opacity } = parsePdfColor(el.style?.color);
+          page.drawText(el.content, {
+            x: el.x,
+            y: pageHeight - el.y - (el.style?.fontSize || 16), // Approx baseline
+            size: el.style?.fontSize || 16,
+            color,
+            opacity,
+          });
+        } else if (el.type === "image" && el.content) {
+          try {
+            const imageBytes = await fetch(el.content).then((res) =>
+              res.arrayBuffer(),
+            );
+            let image;
+            if (
+              el.content.includes("image/png") ||
+              el.content.endsWith(".png")
+            ) {
+              image = await mergedPdf.embedPng(imageBytes);
+            } else {
+              image = await mergedPdf.embedJpg(imageBytes);
+            }
+
+            page.drawImage(image, {
+              x: el.x,
+              y: pageHeight - el.y - (el.height || 0),
+              width: el.width || image.width,
+              height: el.height || image.height,
+            });
+          } catch (e) {
+            console.warn("Failed to embed annotation image", e);
+          }
+        } else if (el.type === "rect") {
+          const { color: fill, opacity: fillOpacity } = parsePdfColor(
+            el.style?.fill,
+          );
+          const { color: stroke, opacity: strokeOpacity } = parsePdfColor(
+            el.style?.stroke,
+          );
+
+          page.drawRectangle({
+            x: el.x,
+            y: pageHeight - el.y - (el.height || 0),
+            width: el.width || 0,
+            height: el.height || 0,
+            color: fill,
+            opacity: fillOpacity,
+            borderColor: stroke,
+            borderOpacity: strokeOpacity,
+            borderWidth: el.style?.strokeWidth || 0,
+          });
+        } else if (el.type === "circle") {
+          const { color: fill, opacity: fillOpacity } = parsePdfColor(
+            el.style?.fill,
+          );
+          const { color: stroke, opacity: strokeOpacity } = parsePdfColor(
+            el.style?.stroke,
+          );
+
+          page.drawEllipse({
+            x: el.x + (el.width || 0) / 2,
+            y: pageHeight - el.y - (el.height || 0) / 2,
+            xScale: (el.width || 0) / 2,
+            yScale: (el.height || 0) / 2,
+            color: fill,
+            opacity: fillOpacity,
+            borderColor: stroke,
+            borderOpacity: strokeOpacity,
+            borderWidth: el.style?.strokeWidth || 0,
+          });
+        } else if (el.type === "sign" && el.points) {
+          const { color: stroke, opacity } = parsePdfColor(
+            el.style?.strokeColor || "#1a1a2e",
+          );
+
+          for (const strokePoints of el.points) {
+            if (strokePoints.length < 2) continue;
+
+            for (let i = 0; i < strokePoints.length - 1; i++) {
+              const p1 = strokePoints[i];
+              const p2 = strokePoints[i + 1];
+
+              page.drawLine({
+                start: {
+                  x: el.x + p1.x,
+                  y: pageHeight - (el.y + p1.y),
+                },
+                end: {
+                  x: el.x + p2.x,
+                  y: pageHeight - (el.y + p2.y),
+                },
+                thickness: el.style?.strokeWidth || 2,
+                color: stroke,
+                opacity,
+              });
+            }
+          }
+        }
+      }
+    }
   }
 
   // Apply Page Numbers and Watermark

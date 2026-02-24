@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Undo, Redo, Download, Share, User, Loader2 } from "lucide-react";
+import { Undo, Redo, Download, Share, Loader2 } from "lucide-react";
 import { useEditor } from "./EditorContext";
 import { mergePages } from "@/utils/pdf";
 
 export default function Header() {
-  const { undo, history, future, redo, pages } = useEditor();
+  const { undo, history, future, redo, pages, elements } = useEditor();
   const [isExporting, setIsExporting] = useState(false);
   const [filename, setFilename] = useState("Untitled Document");
 
@@ -12,7 +12,7 @@ export default function Header() {
     if (pages.length === 0) return;
     setIsExporting(true);
     try {
-      const mergedPdfBytes = await mergePages(pages);
+      const mergedPdfBytes = await mergePages(pages, elements);
       const blob = new Blob([mergedPdfBytes as BlobPart], {
         type: "application/pdf",
       });

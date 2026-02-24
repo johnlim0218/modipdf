@@ -1,7 +1,12 @@
 "use client";
 
 import React, { createContext, useContext, useState, useCallback } from "react";
-import { PageItem, convertFileToPages, createBlankPage } from "@/utils/pdf";
+import {
+  PageItem,
+  convertFileToPages,
+  createBlankPage,
+  EditorElement,
+} from "@/utils/pdf";
 
 export type ToolMode =
   | "hand"
@@ -11,19 +16,6 @@ export type ToolMode =
   | "rect"
   | "circle"
   | "sign";
-
-export interface EditorElement {
-  id: string;
-  type: "text" | "image" | "rect" | "circle" | "sign";
-  x: number;
-  y: number;
-  width?: number;
-  height?: number;
-  content?: string; // For text or image URL
-  style?: Record<string, any>;
-  pageId: string;
-  points?: { x: number; y: number }[][]; // For sign tool (array of strokes)
-}
 
 interface EditorState {
   pages: PageItem[];
