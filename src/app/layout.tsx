@@ -6,6 +6,9 @@ const SITE_URL = "https://modipdf.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  verification: {
+    google: "JoeU0rjjSnf11I_Tq33w0gJK_8sv5pSLIZSiiqNwoBw",
+  },
   title: {
     default: "ModiPDF - 무료 온라인 PDF 편집기 | 병합, 분할, 편집",
     template: "%s | ModiPDF",
