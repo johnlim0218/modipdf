@@ -43,7 +43,7 @@ export default function InterstitialAd({
         {/* Loading indicator */}
         <div className="interstitial-spinner" />
 
-        <h2 className="interstitial-title">PDF를 준비하고 있어요...</h2>
+        <h2 className="interstitial-title">Preparing your PDF...</h2>
         <p className="interstitial-filename">{fileName}</p>
 
         {/* Progress bar */}
@@ -61,10 +61,10 @@ export default function InterstitialAd({
 
         {/* Skip / auto-move button */}
         <button onClick={handleSkip} className="interstitial-skip-btn">
-          {remaining > 0 ? `편집기로 이동 (${remaining}초)` : "편집기로 이동"}
+          {remaining > 0 ? `Go to Editor (${remaining}s)` : "Go to Editor"}
         </button>
         <p className="interstitial-skip-note">
-          준비 완료 후 자동으로 이동합니다
+          You will be redirected automatically when ready
         </p>
       </div>
     </div>

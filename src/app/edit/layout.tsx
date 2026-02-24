@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "PDF 편집기 - 페이지 편집, 병합, 분할",
+  title: "PDF Editor - Edit, Merge, Split Pages",
   description:
-    "ModiPDF 편집기로 PDF 페이지를 자유롭게 편집하세요. 드래그 앤 드롭으로 페이지 순서 변경, 병합, 분할이 가능합니다.",
+    "Edit PDF pages freely with ModiPDF editor. Reorder, merge, and split pages with drag and drop.",
 };
 
 export default function EditLayout({

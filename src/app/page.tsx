@@ -17,7 +17,7 @@ export default function Home() {
       setUploadedFileName(
         files.length === 1
           ? files[0].name
-          : `${files[0].name} 외 ${files.length - 1}개`,
+          : `${files[0].name} and ${files.length - 1} more`,
       );
       await addFiles(files);
       setShowInterstitial(true);

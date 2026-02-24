@@ -2,10 +2,10 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "ModiPDF - 무료 온라인 PDF 편집기",
+    name: "ModiPDF - Free Online PDF Editor",
     short_name: "ModiPDF",
     description:
-      "PDF 병합, 분할, 페이지 편집을 브라우저에서 바로. 설치 없이 빠르고 안전한 PDF 편집 도구.",
+      "Merge, split, and edit PDF pages right in your browser. Fast and secure PDF editing tool — no installation required.",
     start_url: "/",
     display: "standalone",
     background_color: "#ffffff",

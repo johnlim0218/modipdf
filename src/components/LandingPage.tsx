@@ -14,20 +14,20 @@ const jsonLd = {
   name: "ModiPDF",
   url: "https://modipdf.vercel.app",
   description:
-    "무료 온라인 PDF 편집기. PDF 병합, 분할, 페이지 편집을 브라우저에서 바로 수행하세요.",
+    "Free online PDF editor. Merge, split, and edit PDF pages right in your browser.",
   applicationCategory: "UtilitiesApplication",
   operatingSystem: "All",
   offers: {
     "@type": "Offer",
     price: "0",
-    priceCurrency: "KRW",
+    priceCurrency: "USD",
   },
   featureList: [
-    "PDF 병합",
-    "PDF 분할",
-    "PDF 페이지 편집",
-    "드래그 앤 드롭 지원",
-    "이미지 변환",
+    "PDF Merge",
+    "PDF Split",
+    "PDF Page Editing",
+    "Drag & Drop Support",
+    "Image Conversion",
   ],
   browserRequirements: "Requires JavaScript. Requires HTML5.",
   softwareVersion: "1.0",
@@ -90,23 +90,26 @@ export default function LandingPage({ onFileSelect }: LandingPageProps) {
 
       <main className="flex-1 flex flex-col items-center pt-20 px-4 pb-20">
         {/* Hero Section */}
-        <section className="text-center mb-12 max-w-3xl" aria-label="소개">
+        <section
+          className="text-center mb-12 max-w-3xl"
+          aria-label="Introduction"
+        >
           <h1 className="text-5xl md:text-6xl font-extrabold text-gray-900 mb-6 tracking-tight leading-tight">
-            무료 온라인 PDF 편집기 <br />
+            Free Online PDF Editor <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-blue-500">
               ModiPDF
             </span>
           </h1>
           <p className="text-xl text-gray-500 mb-8 max-w-2xl mx-auto">
-            PDF 병합, 분할, 페이지 편집을 브라우저에서 바로. 설치 없이 빠르고
-            안전하게 PDF를 편집하세요.
+            Merge, split, and edit PDF pages right in your browser. Fast and
+            secure — no installation required.
           </p>
         </section>
 
         {/* Upload Card */}
         <section
           className="w-full max-w-4xl relative z-10"
-          aria-label="파일 업로드"
+          aria-label="File upload"
         >
           {/* Glow Effect */}
           <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-blue-500 rounded-2xl opacity-20 blur-xl"></div>
@@ -118,7 +121,7 @@ export default function LandingPage({ onFileSelect }: LandingPageProps) {
             onClick={() => document.getElementById("file-upload")?.click()}
             role="button"
             tabIndex={0}
-            aria-label="PDF 파일 업로드 영역"
+            aria-label="PDF file upload area"
             onKeyDown={(e) => {
               if (e.key === "Enter" || e.key === " ") {
                 document.getElementById("file-upload")?.click();
@@ -132,7 +135,7 @@ export default function LandingPage({ onFileSelect }: LandingPageProps) {
               multiple
               accept=".pdf,.jpg,.jpeg,.png"
               onChange={onChange}
-              aria-label="PDF 파일 선택"
+              aria-label="Select PDF files"
             />
 
             <div className="w-20 h-20 bg-indigo-50 rounded-full flex items-center justify-center mx-auto mb-8 group-hover:scale-110 transition-transform duration-300">
@@ -144,14 +147,14 @@ export default function LandingPage({ onFileSelect }: LandingPageProps) {
             </div>
 
             <h2 className="text-2xl font-bold text-gray-900 mb-2">
-              PDF 파일을 업로드하세요
+              Upload your PDF files
             </h2>
             <p className="text-gray-500 mb-8">
-              여기에 파일을 드래그하거나 클릭하여 선택하세요
+              Drag & drop files here or click to browse
             </p>
 
             <button className="px-8 py-3 bg-indigo-600 text-white rounded-xl font-medium shadow-lg hover:bg-indigo-700 hover:shadow-indigo-500/25 transition-all transform hover:-translate-y-0.5">
-              파일 선택
+              Choose Files
             </button>
           </div>
         </section>
@@ -164,13 +167,21 @@ export default function LandingPage({ onFileSelect }: LandingPageProps) {
         {/* Quick Tools */}
         <section
           className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 max-w-4xl w-full"
-          aria-label="PDF 도구"
+          aria-label="PDF Tools"
         >
           {[
-            { label: "PDF 병합", icon: "M", desc: "여러 PDF를 하나로 합치기" },
-            { label: "PDF 분할", icon: "S", desc: "PDF를 여러 파일로 나누기" },
-            { label: "압축", icon: "C", desc: "PDF 파일 크기 줄이기" },
-            { label: "변환", icon: "CV", desc: "이미지를 PDF로 변환" },
+            {
+              label: "Merge PDF",
+              icon: "M",
+              desc: "Combine multiple PDFs into one",
+            },
+            {
+              label: "Split PDF",
+              icon: "S",
+              desc: "Split a PDF into multiple files",
+            },
+            { label: "Compress", icon: "C", desc: "Reduce PDF file size" },
+            { label: "Convert", icon: "CV", desc: "Convert images to PDF" },
           ].map((tool) => (
             <button
               key={tool.label}
@@ -194,8 +205,8 @@ export default function LandingPage({ onFileSelect }: LandingPageProps) {
       {/* Footer */}
       <footer className="py-6 text-center text-sm text-gray-400 border-t border-gray-100">
         <p>
-          © {new Date().getFullYear()} ModiPDF — 무료 온라인 PDF 편집기. 모든
-          작업은 브라우저에서 안전하게 처리됩니다.
+          © {new Date().getFullYear()} ModiPDF — Free Online PDF Editor. All
+          processing is done securely in your browser.
         </p>
       </footer>
 

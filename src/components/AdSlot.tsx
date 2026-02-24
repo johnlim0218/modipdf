@@ -70,7 +70,7 @@ export default function AdSlot({ slot, format, className = "" }: AdSlotProps) {
         data-full-width-responsive="true"
       />
 
-      {/* 개발 환경에서만 보이는 가이드 (승인 전 확인용) */}
+      {/* Dev guide visible only in development (for pre-approval checks) */}
       {process.env.NODE_ENV === "development" && (
         <div
           style={{
@@ -92,7 +92,7 @@ export default function AdSlot({ slot, format, className = "" }: AdSlotProps) {
             zIndex: 1,
           }}
         >
-          <span>애드센스 광고 영역 ({config.label})</span>
+          <span>AdSense Ad Area ({config.label})</span>
           <span style={{ fontSize: "10px" }}>ID: {ADSENSE_CLIENT_ID}</span>
         </div>
       )}

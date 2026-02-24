@@ -10,21 +10,25 @@ export const metadata: Metadata = {
     google: "JoeU0rjjSnf11I_Tq33w0gJK_8sv5pSLIZSiiqNwoBw",
   },
   title: {
-    default: "ModiPDF - 무료 온라인 PDF 편집기 | 병합, 분할, 편집",
+    default: "ModiPDF - Free Online PDF Editor | Merge, Split, Edit",
     template: "%s | ModiPDF",
   },
   description:
-    "ModiPDF는 무료 온라인 PDF 편집 도구입니다. PDF 병합, 분할, 페이지 편집, 이미지 변환을 브라우저에서 바로 수행하세요. 설치 없이 빠르고 안전하게 PDF를 편집할 수 있습니다.",
+    "ModiPDF is a free online PDF editing tool. Merge, split, edit pages, and convert images to PDF right in your browser. Fast and secure PDF editing with no installation required.",
   keywords: [
-    "PDF 편집",
-    "PDF 병합",
-    "PDF 분할",
-    "PDF 변환",
-    "온라인 PDF 편집기",
-    "무료 PDF 도구",
-    "무료 pdf 편집",
+    "PDF editor",
     "PDF merge",
     "PDF split",
+    "PDF convert",
+    "online PDF editor",
+    "free PDF tools",
+    "free PDF editor",
+    "PDF combiner",
+    "PDF compressor",
+    "edit PDF online",
+    "merge PDF files",
+    "split PDF pages",
+    "PDF page editor",
     "PDF editor online",
     "ModiPDF",
   ],
@@ -32,18 +36,18 @@ export const metadata: Metadata = {
   creator: "ModiPDF",
   openGraph: {
     type: "website",
-    locale: "ko_KR",
+    locale: "en_US",
     url: SITE_URL,
     siteName: "ModiPDF",
-    title: "ModiPDF - 무료 온라인 PDF 편집기",
+    title: "ModiPDF - Free Online PDF Editor",
     description:
-      "PDF 병합, 분할, 페이지 편집을 브라우저에서 바로. 설치 없이 빠르고 안전한 PDF 편집 도구.",
+      "Merge, split, and edit PDF pages right in your browser. Fast and secure PDF editing tool — no installation required.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "ModiPDF - 무료 온라인 PDF 편집기",
+    title: "ModiPDF - Free Online PDF Editor",
     description:
-      "PDF 병합, 분할, 페이지 편집을 브라우저에서 바로. 설치 없이 빠르고 안전한 PDF 편집 도구.",
+      "Merge, split, and edit PDF pages right in your browser. Fast and secure PDF editing tool — no installation required.",
   },
   alternates: {
     canonical: SITE_URL,
@@ -70,7 +74,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
+    <html lang="en">
       <head>
         <script
           async
