@@ -23,7 +23,7 @@ export default function EditorLayout({
       </div>
 
       {/* Secondary Toolbar */}
-      <div className="h-12 bg-white border-b border-gray-200 z-10 shadow-sm">
+      <div className="h-16 bg-white border-b border-gray-200 z-10 shadow-sm">
         {toolbar}
       </div>
 
@@ -40,7 +40,7 @@ export default function EditorLayout({
         </div>
 
         {/* Right Panel: Properties */}
-        <div className="w-72 bg-white border-l border-gray-200 overflow-y-auto hidden lg:block">
+        <div className="w-80 bg-white border-l border-gray-200 overflow-y-auto hidden lg:block">
           {propertyPanel}
         </div>
       </div>

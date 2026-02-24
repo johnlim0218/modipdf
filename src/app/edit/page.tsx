@@ -13,20 +13,23 @@ import { useEditor } from "@/components/Editor/EditorContext";
 export default function EditorPage() {
   const { pages, selectedPageIds, selectPage } = useEditor();
   const router = useRouter();
-  const hasInitialized = useRef(false);
+  // We use a ref to track if we've ever had pages.
+  // This allows us to stay in the editor if we undo to an empty state.
+  const isInitialized = useRef(pages.length > 0);
 
   useEffect(() => {
-    if (pages.length === 0) {
-      router.push("/");
-    } else if (!hasInitialized.current && selectedPageIds.size === 0) {
-      selectPage(pages[0].id, false);
-      hasInitialized.current = true;
-    }
-  }, [pages, router, selectedPageIds, selectPage]);
+    if (pages.length > 0) {
+      isInitialized.current = true;
 
-  if (pages.length === 0) {
-    return null; // Or a loading spinner
-  }
+      // Handle initial auto-selection if needed
+      if (selectedPageIds.size === 0) {
+        selectPage(pages[0].id, false);
+      }
+    } else if (!isInitialized.current) {
+      // Direct access to /edit without any pages, redirect to landing
+      router.push("/");
+    }
+  }, [pages, selectedPageIds, selectPage, router]);
 
   return (
     <EditorLayout

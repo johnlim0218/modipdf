@@ -8,6 +8,8 @@ import {
   EditorElement,
 } from "@/utils/pdf";
 
+export type { EditorElement };
+
 export type ToolMode =
   | "hand"
   | "select"

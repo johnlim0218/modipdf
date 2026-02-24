@@ -33,17 +33,17 @@ const ToolButton = ({
   <button
     onClick={() => setToolMode(mode)}
     className={`
-      flex flex-col items-center gap-1 p-2 rounded-lg transition-all group min-w-[3rem]
+      flex flex-col items-center gap-1 py-1.5 px-3 rounded-lg transition-all group min-w-[3.2rem]
       ${
         toolMode === mode
-          ? "bg-indigo-50 text-indigo-600"
+          ? "bg-indigo-50 text-indigo-600 shadow-sm ring-1 ring-indigo-200"
           : "text-gray-500 hover:bg-gray-50 hover:text-gray-900"
       }
     `}
     title={label}
   >
     <Icon size={20} />
-    <span className="text-[10px] font-medium">{label}</span>
+    <span className="text-[10px] font-semibold">{label}</span>
   </button>
 );
 
@@ -107,17 +107,17 @@ export default function Toolbar() {
       <div className="flex bg-gray-100 rounded-lg p-1 gap-1">
         <button
           onClick={() => setToolMode("hand")}
-          className={`p-1.5 rounded shadow-sm transition ${toolMode === "hand" ? "bg-white text-indigo-600" : "text-gray-500 hover:text-gray-900"}`}
+          className={`p-2 rounded-lg shadow-sm transition ${toolMode === "hand" ? "bg-white text-indigo-600" : "text-gray-500 hover:text-gray-900"}`}
           title="Hand Tool"
         >
-          <Hand size={18} />
+          <Hand size={20} />
         </button>
         <button
           onClick={() => setToolMode("select")}
-          className={`p-1.5 rounded shadow-sm transition ${toolMode === "select" ? "bg-white text-indigo-600" : "text-gray-500 hover:text-gray-900"}`}
+          className={`p-2 rounded-lg shadow-sm transition ${toolMode === "select" ? "bg-white text-indigo-600" : "text-gray-500 hover:text-gray-900"}`}
           title="Select Tool"
         >
-          <MousePointer size={18} />
+          <MousePointer size={20} />
         </button>
       </div>
 
@@ -135,17 +135,17 @@ export default function Toolbar() {
         <button
           onClick={() => imageInputRef.current?.click()}
           className={`
-            flex flex-col items-center gap-1 p-2 rounded-lg transition-all group min-w-[3rem]
+            flex flex-col items-center gap-1 py-1.5 px-3 rounded-lg transition-all group min-w-[3.2rem]
             ${
               toolMode === "image"
-                ? "bg-indigo-50 text-indigo-600"
+                ? "bg-indigo-50 text-indigo-600 shadow-sm ring-1 ring-indigo-200"
                 : "text-gray-500 hover:bg-gray-50 hover:text-gray-900"
             }
           `}
           title="Image"
         >
           <ImageIcon size={20} />
-          <span className="text-[10px] font-medium">Image</span>
+          <span className="text-[10px] font-semibold">Image</span>
         </button>
         <input
           ref={imageInputRef}

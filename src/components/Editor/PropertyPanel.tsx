@@ -41,9 +41,11 @@ const ColorInput = ({
         type="color"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-8 h-8 rounded border border-gray-200 cursor-pointer"
+        className="w-10 h-10 rounded-lg border border-gray-200 cursor-pointer p-1"
       />
-      <span className="text-xs text-gray-400 font-mono w-16">{value}</span>
+      <span className="text-xs text-gray-400 font-mono w-16 uppercase">
+        {value}
+      </span>
     </div>
   </div>
 );
@@ -76,7 +78,7 @@ const NumberInput = ({
         min={min}
         max={max}
         step={step || 1}
-        className="w-20 border border-gray-300 rounded p-1 text-sm text-right"
+        className="w-24 border border-gray-300 rounded-lg p-2 text-sm text-right focus:ring-2 focus:ring-indigo-100 focus:border-indigo-300 transition"
       />
       {unit && <span className="text-xs text-gray-400">{unit}</span>}
     </div>
@@ -165,7 +167,7 @@ export default function PropertyPanel() {
           </button>
         </div>
 
-        <div className="flex-1 p-4 space-y-5 overflow-y-auto">
+        <div className="flex-1 p-6 space-y-8 overflow-y-auto">
           {/* Position & Size (all elements) */}
           <div>
             <SectionTitle>Position & Size</SectionTitle>
