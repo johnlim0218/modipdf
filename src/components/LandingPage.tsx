@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Upload } from "lucide-react";
+import AdSlot from "@/components/AdSlot";
 
 interface LandingPageProps {
   onFileSelect: (files: File[]) => void;
@@ -55,7 +56,14 @@ export default function LandingPage({ onFileSelect }: LandingPageProps) {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-white font-sans">
+    <div className="flex flex-col min-h-screen bg-white font-sans relative">
+      {/* Sidebar Ads (desktop xl+ only) */}
+      <div className="hidden xl:block fixed left-4 top-1/2 -translate-y-1/2 z-10">
+        <AdSlot slot="landing-sidebar-left" format="vertical" />
+      </div>
+      <div className="hidden xl:block fixed right-4 top-1/2 -translate-y-1/2 z-10">
+        <AdSlot slot="landing-sidebar-right" format="vertical" />
+      </div>
       {/* JSON-LD Structured Data */}
       <script
         type="application/ld+json"
@@ -148,9 +156,14 @@ export default function LandingPage({ onFileSelect }: LandingPageProps) {
           </div>
         </section>
 
+        {/* Ad Slot: Below Upload Card */}
+        <div className="w-full max-w-4xl mt-10">
+          <AdSlot slot="landing-below-upload" format="horizontal" />
+        </div>
+
         {/* Quick Tools */}
         <section
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-20 max-w-4xl w-full"
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 max-w-4xl w-full"
           aria-label="PDF 도구"
         >
           {[
