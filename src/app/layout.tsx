@@ -22,6 +22,7 @@ export const metadata: Metadata = {
     "PDF 변환",
     "온라인 PDF 편집기",
     "무료 PDF 도구",
+    "무료 pdf 편집",
     "PDF merge",
     "PDF split",
     "PDF editor online",
