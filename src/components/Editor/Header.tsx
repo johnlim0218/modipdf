@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Undo, Redo, Download, Share, Loader2 } from "lucide-react";
+import Link from "next/link";
+import { Undo, Redo, Download, Loader2 } from "lucide-react";
 import { useEditor } from "./EditorContext";
 import { mergePages } from "@/utils/pdf";
 
@@ -34,12 +35,16 @@ export default function Header() {
     <div className="flex items-center justify-between h-full px-6 bg-white border-b border-gray-100">
       {/* Left: Logo & Filename */}
       <div className="flex items-center gap-4">
-        <div className="flex items-center gap-2 text-indigo-600">
+        <Link
+          href="/"
+          className="flex items-center gap-2 text-indigo-600"
+          aria-label="ModiPDF home"
+        >
           <div className="w-8 h-8 bg-indigo-50 rounded-lg flex items-center justify-center font-bold">
             M
           </div>
           <span className="font-bold text-lg tracking-tight">ModiPDF</span>
-        </div>
+        </Link>
         <div className="h-6 w-px bg-gray-200"></div>
         <input
           type="text"
@@ -80,15 +85,6 @@ export default function Header() {
           )}
           Export
         </button>
-
-        <div className="flex gap-2 ml-2">
-          <button className="w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 transition">
-            <Share size={16} />
-          </button>
-          <button className="w-9 h-9 flex items-center justify-center rounded-full bg-indigo-50 text-indigo-600 font-medium">
-            G
-          </button>
-        </div>
       </div>
     </div>
   );

@@ -1,8 +1,10 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { Upload } from "lucide-react";
-import AdSlot from "@/components/AdSlot";
+import SiteHeader from "@/components/site/SiteHeader";
+import SiteFooter from "@/components/site/SiteFooter";
 
 interface LandingPageProps {
   onFileSelect: (files: File[]) => void;
@@ -14,7 +16,7 @@ const jsonLd = {
   name: "ModiPDF",
   url: "https://modipdf.vercel.app",
   description:
-    "Free online PDF editor. Merge, split, and edit PDF pages right in your browser.",
+    "Free online PDF editor. Merge PDFs, reorder, rotate, and remove pages, and add text, images, shapes, and signatures right in your browser.",
   applicationCategory: "UtilitiesApplication",
   operatingSystem: "All",
   offers: {
@@ -24,10 +26,10 @@ const jsonLd = {
   },
   featureList: [
     "PDF Merge",
-    "PDF Split",
-    "PDF Page Editing",
+    "Page Reordering, Rotation, and Deletion",
+    "Add Text, Images, Shapes, and Signatures",
     "Drag & Drop Support",
-    "Image Conversion",
+    "Image to PDF Conversion",
   ],
   browserRequirements: "Requires JavaScript. Requires HTML5.",
   softwareVersion: "1.0",
@@ -45,13 +47,13 @@ const features = [
   },
   {
     icon: "✂️",
-    title: "Split PDF Pages",
-    desc: "Extract specific pages or split a large PDF into smaller files. Select the exact pages you need and create separate documents instantly — no software installation required.",
+    title: "Reorder, Rotate & Remove Pages",
+    desc: "Drag page thumbnails into the order you need, rotate pages that were scanned sideways, and delete pages you don't want. Keep only the pages that matter — no software installation required.",
   },
   {
-    icon: "🗜️",
-    title: "Compress PDF",
-    desc: "Reduce PDF file size without sacrificing quality. Our compression tool optimizes images and removes unnecessary data to make your PDFs smaller for easy sharing via email or cloud storage.",
+    icon: "✍️",
+    title: "Add Text, Images & Signatures",
+    desc: "Place text boxes, images, rectangles, and circles anywhere on a page, or draw your signature directly in the editor. Everything is written into the exported PDF.",
   },
   {
     icon: "🖼️",
@@ -61,7 +63,7 @@ const features = [
   {
     icon: "🔒",
     title: "100% Private & Secure",
-    desc: "All PDF processing happens entirely in your browser using WebAssembly technology. Your files are never uploaded to any server — your documents stay private on your device at all times.",
+    desc: "All PDF processing happens entirely in your browser using JavaScript libraries (pdf-lib and PDF.js). Your files are never uploaded to any server — your documents stay private on your device at all times.",
   },
   {
     icon: "⚡",
@@ -79,24 +81,24 @@ const steps = [
   {
     step: "2",
     title: "Edit & Arrange",
-    desc: "Use the intuitive editor to reorder pages, delete unwanted pages, merge files, or split documents. Everything is visual and drag-and-drop friendly.",
+    desc: "Use the intuitive editor to reorder pages, rotate or delete pages, merge files, and add text, images, or signatures. Everything is visual and drag-and-drop friendly.",
   },
   {
     step: "3",
     title: "Download Your Result",
-    desc: "When you're satisfied with your edits, click Download to save the final PDF directly to your device. No account needed.",
+    desc: "When you're satisfied with your edits, click Export to save the final PDF directly to your device. No account needed.",
   },
 ];
 
 const useCases = [
   {
     title: "For Students & Academics",
-    desc: "Combine lecture notes, research papers, and assignments into a single organized PDF. Split lengthy textbooks into chapter-level files for easier study sessions. Convert scanned handwritten notes into clean PDF documents.",
+    desc: "Combine lecture notes, research papers, and assignments into a single organized PDF. Remove unneeded pages from long readings to keep only what you need to study. Convert scanned handwritten notes into clean PDF documents.",
     audience: "Students, researchers, educators",
   },
   {
     title: "For Business Professionals",
-    desc: "Merge contracts, proposals, and invoices into consolidated files for clients. Split large reports into department-specific sections for targeted distribution. Compress presentations before emailing to keep file sizes manageable.",
+    desc: "Merge contracts, proposals, and invoices into consolidated files for clients. Pull only the relevant pages out of large reports before sharing them. Sign agreements by drawing your signature directly on the page.",
     audience: "Managers, accountants, HR teams",
   },
   {
@@ -106,52 +108,42 @@ const useCases = [
   },
   {
     title: "For Everyday Use",
-    desc: "Merge scanned receipts and documents for tax filing. Split a multi-page form to fill out and return only the pages you need. Compress large photo albums converted to PDF for easy sharing with family and friends.",
+    desc: "Merge scanned receipts and documents for tax filing. Remove the pages you don't need from a multi-page form and return only the relevant ones. Turn phone photos of documents into a single PDF to share with family and friends.",
     audience: "Anyone working with PDFs",
   },
 ];
 
 const comparisons = [
   {
-    feature: "Price",
-    modipdf: "100% Free",
-    others: "Subscription required ($12–20/mo)",
+    feature: "Where files are processed",
+    modipdf: "Locally in your browser",
+    others: "Often uploaded to a remote server",
   },
   {
-    feature: "File Privacy",
-    modipdf: "Files stay on your device",
-    others: "Files uploaded to cloud servers",
+    feature: "Account",
+    modipdf: "Not required",
+    others: "Sometimes required for full access",
   },
   {
-    feature: "Account Required",
-    modipdf: "No account needed",
-    others: "Registration required",
+    feature: "Cost",
+    modipdf: "Free, supported by ads",
+    others: "Varies; some features may be paid",
   },
   {
-    feature: "Processing Speed",
-    modipdf: "Instant (local processing)",
-    others: "Depends on upload/download speed",
-  },
-  {
-    feature: "File Size Limit",
-    modipdf: "Limited only by your device",
-    others: "Typically 25–100 MB per file",
-  },
-  {
-    feature: "Internet Needed",
-    modipdf: "Only to load the page",
-    others: "Required for all operations",
+    feature: "Installation",
+    modipdf: "None — runs in a web page",
+    others: "Desktop apps need to be installed",
   },
 ];
 
 const faqs = [
   {
     q: "Is ModiPDF really free?",
-    a: "Yes, ModiPDF is completely free to use. There are no hidden costs, no subscription fees, and no limits on the number of files you can process.",
+    a: "Yes, ModiPDF is completely free to use. There are no hidden costs or subscription fees. The site is supported by advertising.",
   },
   {
     q: "Do my files get uploaded to a server?",
-    a: "No. All PDF processing is done locally in your web browser using WebAssembly (PDF-lib). Your files never leave your device, so your documents remain completely private.",
+    a: "No. All PDF processing is done locally in your web browser using JavaScript libraries (pdf-lib for editing and PDF.js for rendering). Your files are never sent to our servers, so your documents stay on your device.",
   },
   {
     q: "What file formats does ModiPDF support?",
@@ -159,7 +151,7 @@ const faqs = [
   },
   {
     q: "Is there a file size limit?",
-    a: "Since processing happens in your browser, the practical limit depends on your device's memory. Most modern computers handle PDFs up to several hundred megabytes without any issues.",
+    a: "We don't impose a file size limit. Since processing happens in your browser, the practical limit depends on your device's available memory — very large files may be slow on older or mobile devices.",
   },
   {
     q: "Do I need to create an account?",
@@ -197,52 +189,7 @@ export default function LandingPage({ onFileSelect }: LandingPageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* Navbar */}
-      <nav
-        className="flex items-center justify-between px-8 py-4 bg-white/80 backdrop-blur-sm sticky top-0 z-50 border-b border-gray-100"
-        aria-label="Main navigation"
-      >
-        <div className="flex items-center gap-2">
-          <div
-            className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold"
-            aria-hidden="true"
-          >
-            M
-          </div>
-          <span className="text-xl font-bold text-gray-900 tracking-tight">
-            ModiPDF
-          </span>
-        </div>
-        <div className="hidden md:flex items-center gap-6 text-sm text-gray-500">
-          <a
-            href="#features"
-            className="hover:text-indigo-600 transition-colors"
-          >
-            Features
-          </a>
-          <a
-            href="#how-it-works"
-            className="hover:text-indigo-600 transition-colors"
-          >
-            How It Works
-          </a>
-          <a
-            href="#use-cases"
-            className="hover:text-indigo-600 transition-colors"
-          >
-            Use Cases
-          </a>
-          <a
-            href="#comparison"
-            className="hover:text-indigo-600 transition-colors"
-          >
-            Compare
-          </a>
-          <a href="#faq" className="hover:text-indigo-600 transition-colors">
-            FAQ
-          </a>
-        </div>
-      </nav>
+      <SiteHeader />
 
       <main className="flex-1 flex flex-col items-center px-4 pb-20">
         {/* Hero Section */}
@@ -257,7 +204,8 @@ export default function LandingPage({ onFileSelect }: LandingPageProps) {
             </span>
           </h1>
           <p className="text-xl text-gray-500 mb-8 max-w-2xl mx-auto">
-            Merge, split, compress, and edit PDF pages right in your browser.
+            Merge PDFs, rearrange pages, and add text, images, and signatures
+            right in your browser.
             Fast, secure, and 100% free — no installation or account required.
           </p>
           {/* Trust badges */}
@@ -396,11 +344,6 @@ export default function LandingPage({ onFileSelect }: LandingPageProps) {
           </div>
         </section>
 
-        {/* Ad Slot: Between content sections */}
-        <div className="w-full max-w-4xl mt-16">
-          <AdSlot slot="landing-mid-content" format="horizontal" />
-        </div>
-
         {/* Use Cases Section */}
         <section
           id="use-cases"
@@ -412,8 +355,8 @@ export default function LandingPage({ onFileSelect }: LandingPageProps) {
               Who Uses ModiPDF?
             </h2>
             <p className="text-gray-500 max-w-2xl mx-auto">
-              From students to business professionals, ModiPDF helps thousands
-              of people work with PDFs every day — completely free and private.
+              From students to business professionals, ModiPDF is built for
+              anyone who needs to work with PDFs quickly — free and private.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -444,12 +387,12 @@ export default function LandingPage({ onFileSelect }: LandingPageProps) {
         >
           <div className="text-center mb-12">
             <h2 className="text-3xl font-extrabold text-gray-900 mb-3">
-              Why Choose ModiPDF Over Other PDF Tools?
+              How ModiPDF Differs from Typical PDF Tools
             </h2>
             <p className="text-gray-500 max-w-2xl mx-auto">
-              Unlike traditional PDF editors that require subscriptions and
-              upload your files to the cloud, ModiPDF keeps your data private
-              and costs nothing.
+              Many online PDF tools process files on their own servers.
+              ModiPDF takes a different approach: your files are handled
+              entirely on your own device.
             </p>
           </div>
           <div className="overflow-hidden border border-gray-100 rounded-2xl">
@@ -463,7 +406,7 @@ export default function LandingPage({ onFileSelect }: LandingPageProps) {
                     ModiPDF
                   </th>
                   <th className="text-left px-6 py-4 font-semibold text-gray-400">
-                    Other PDF Tools
+                    Many Other Tools
                   </th>
                 </tr>
               </thead>
@@ -518,21 +461,20 @@ export default function LandingPage({ onFileSelect }: LandingPageProps) {
                 want to combine by dragging them into the upload area. The
                 editor will display thumbnails of every page from each file.
                 You can then drag and drop individual pages or entire documents
-                to rearrange them in any order. Once satisfied, click Download
+                to rearrange them in any order. Once satisfied, click Export
                 to save the combined PDF.
               </p>
               <p className="text-gray-500 leading-relaxed">
-                Unlike cloud-based tools, ModiPDF performs the merge operation
-                entirely in your browser. This means there are no file size
-                limits imposed by a server, no waiting for uploads and
-                downloads, and no risk of your confidential documents being
-                stored on a third-party server.
+                ModiPDF performs the merge operation entirely in your browser.
+                This means there are no file size limits imposed by a server,
+                no waiting for uploads, and your confidential documents are
+                never stored on a third-party server.
               </p>
             </article>
 
             <article className="p-8 bg-white border border-gray-100 rounded-2xl">
               <h3 className="text-xl font-bold text-gray-900 mb-4">
-                How to Split a PDF into Separate Files
+                How to Extract Only the Pages You Need
               </h3>
               <p className="text-gray-500 leading-relaxed mb-4">
                 Sometimes you receive a large PDF that contains more
@@ -543,10 +485,10 @@ export default function LandingPage({ onFileSelect }: LandingPageProps) {
               <p className="text-gray-500 leading-relaxed mb-4">
                 ModiPDF makes it easy to extract the exact pages you need.
                 Upload your PDF, then select the specific pages in the
-                navigation panel — you can click individual pages or
-                shift-click to select a range. Delete the pages you do not
+                navigation panel — click a page, or hold Ctrl (Cmd on
+                Mac) and click to select several. Delete the pages you do not
                 need, and the remaining pages will form your new document.
-                Download the result and you have a clean, trimmed PDF.
+                Export the result and you have a clean, trimmed PDF.
               </p>
               <p className="text-gray-500 leading-relaxed">
                 This approach is especially useful for legal documents,
@@ -615,10 +557,48 @@ export default function LandingPage({ onFileSelect }: LandingPageProps) {
           </div>
         </section>
 
-        {/* Bottom Ad */}
-        <div className="w-full max-w-4xl mt-16">
-          <AdSlot slot="landing-bottom" format="horizontal" />
-        </div>
+        {/* Learn More Section */}
+        <section
+          className="w-full max-w-4xl mt-24"
+          aria-label="Guides and help"
+        >
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-extrabold text-gray-900 mb-3">
+              Learn More
+            </h2>
+            <p className="text-gray-500 max-w-2xl mx-auto">
+              Step-by-step guides and answers to common questions about editing
+              PDFs with ModiPDF.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Link
+              href="/guides"
+              className="block p-6 bg-white border border-gray-100 rounded-2xl hover:shadow-lg hover:border-indigo-100 transition-all"
+            >
+              <h3 className="text-lg font-bold text-gray-900 mb-2">
+                PDF Guides &rarr;
+              </h3>
+              <p className="text-gray-500 text-sm leading-relaxed">
+                Practical walkthroughs for merging PDFs, reordering and
+                rotating pages, converting images to PDF, signing documents,
+                and more.
+              </p>
+            </Link>
+            <Link
+              href="/faq"
+              className="block p-6 bg-white border border-gray-100 rounded-2xl hover:shadow-lg hover:border-indigo-100 transition-all"
+            >
+              <h3 className="text-lg font-bold text-gray-900 mb-2">
+                Frequently Asked Questions &rarr;
+              </h3>
+              <p className="text-gray-500 text-sm leading-relaxed">
+                Detailed answers about privacy, supported files, browser
+                compatibility, and how ModiPDF works under the hood.
+              </p>
+            </Link>
+          </div>
+        </section>
 
         {/* CTA Section */}
         <section
@@ -630,7 +610,7 @@ export default function LandingPage({ onFileSelect }: LandingPageProps) {
               Ready to Edit Your PDF?
             </h2>
             <p className="text-indigo-100 mb-8">
-              Start editing for free right now — no account, no limits, no cost.
+              Start editing for free right now — no account and no installation.
             </p>
             <button
               className="px-8 py-3 bg-white text-indigo-600 rounded-xl font-bold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all"
@@ -642,24 +622,7 @@ export default function LandingPage({ onFileSelect }: LandingPageProps) {
         </section>
       </main>
 
-      {/* Footer */}
-      <footer className="py-8 text-center text-sm text-gray-400 border-t border-gray-100 mt-16">
-        <p className="mb-2">
-          © {new Date().getFullYear()} ModiPDF — Free Online PDF Editor. All
-          processing is done securely in your browser.
-        </p>
-        <div className="flex justify-center gap-4 mt-2">
-          <a
-            href="/privacy"
-            className="hover:text-indigo-600 transition-colors"
-          >
-            Privacy Policy
-          </a>
-          <a href="/terms" className="hover:text-indigo-600 transition-colors">
-            Terms of Service
-          </a>
-        </div>
-      </footer>
+      <SiteFooter />
 
       {/* Background decoration */}
       <div className="fixed top-0 left-0 w-full h-[500px] bg-gradient-to-b from-blue-50 to-white -z-10"></div>

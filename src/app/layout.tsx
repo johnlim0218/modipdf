@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Providers from "@/components/Providers";
-
-const SITE_URL = "https://modipdf.vercel.app";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   verification: {
     google: "JoeU0rjjSnf11I_Tq33w0gJK_8sv5pSLIZSiiqNwoBw",
+  },
+  other: {
+    "google-adsense-account": "ca-pub-4184045152834193",
   },
   title: {
     default: "ModiPDF - Free Online PDF Editor | Merge, Split, Edit",
@@ -24,7 +26,6 @@ export const metadata: Metadata = {
     "free PDF tools",
     "free PDF editor",
     "PDF combiner",
-    "PDF compressor",
     "edit PDF online",
     "merge PDF files",
     "split PDF pages",
@@ -48,9 +49,6 @@ export const metadata: Metadata = {
     title: "ModiPDF - Free Online PDF Editor",
     description:
       "Merge, split, and edit PDF pages right in your browser. Fast and secure PDF editing tool — no installation required.",
-  },
-  alternates: {
-    canonical: SITE_URL,
   },
   icons: {
     icon: [

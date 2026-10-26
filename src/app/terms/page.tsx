@@ -1,32 +1,27 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import SiteHeader from "@/components/site/SiteHeader";
+import SiteFooter from "@/components/site/SiteFooter";
+import { CONTACT_EMAIL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Terms of Service",
   description:
     "ModiPDF Terms of Service. Read about the terms and conditions for using our free online PDF editor.",
+  alternates: { canonical: "/terms" },
 };
 
 export default function TermsPage() {
   return (
     <div className="flex flex-col min-h-screen bg-white font-sans">
-      {/* Navbar */}
-      <nav className="flex items-center justify-between px-8 py-4 bg-white/80 backdrop-blur-sm sticky top-0 z-50 border-b border-gray-100">
-        <a href="/" className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold">
-            M
-          </div>
-          <span className="text-xl font-bold text-gray-900 tracking-tight">
-            ModiPDF
-          </span>
-        </a>
-      </nav>
+      <SiteHeader />
 
       <main className="flex-1 max-w-3xl mx-auto px-6 py-16">
         <h1 className="text-4xl font-extrabold text-gray-900 mb-2">
           Terms of Service
         </h1>
         <p className="text-sm text-gray-400 mb-10">
-          Last updated: April 6, 2026
+          Last updated: October 27, 2026
         </p>
 
         <div className="prose prose-gray max-w-none space-y-8 text-gray-600 leading-relaxed">
@@ -48,15 +43,18 @@ export default function TermsPage() {
             </h2>
             <p>
               ModiPDF is a free, browser-based PDF editing tool that allows you
-              to merge, split, compress, rearrange, and convert PDF documents
-              and images. All file processing is performed locally in your web
+              to combine PDF files and images into a single PDF, reorder,
+              rotate, and delete pages, insert blank pages, and add text,
+              images, shapes, and hand-drawn signatures before exporting the
+              result. All file processing is performed locally in your web
               browser — no files are uploaded to our servers.
             </p>
             <p className="mt-3">Key characteristics of the Service:</p>
             <ul className="list-disc pl-6 mt-3 space-y-2">
               <li>
                 <strong>Client-side processing:</strong> All PDF operations use
-                WebAssembly and JavaScript libraries running in your browser.
+                JavaScript libraries (pdf-lib and PDF.js) running in your
+                browser.
               </li>
               <li>
                 <strong>No account required:</strong> You can use ModiPDF
@@ -216,30 +214,24 @@ export default function TermsPage() {
               12. Contact Us
             </h2>
             <p>
-              If you have any questions about these Terms, please contact us
-              through our website at modipdf.vercel.app.
+              If you have any questions about these Terms, email us at{" "}
+              <a
+                href={`mailto:${CONTACT_EMAIL}`}
+                className="text-indigo-600 hover:underline"
+              >
+                {CONTACT_EMAIL}
+              </a>{" "}
+              or visit our{" "}
+              <Link href="/contact" className="text-indigo-600 hover:underline">
+                Contact page
+              </Link>
+              .
             </p>
           </section>
         </div>
       </main>
 
-      <footer className="py-8 text-center text-sm text-gray-400 border-t border-gray-100">
-        <p>
-          &copy; {new Date().getFullYear()} ModiPDF &mdash; Free Online PDF
-          Editor
-        </p>
-        <div className="flex justify-center gap-4 mt-2">
-          <a
-            href="/privacy"
-            className="hover:text-indigo-600 transition-colors"
-          >
-            Privacy Policy
-          </a>
-          <a href="/terms" className="hover:text-indigo-600 transition-colors">
-            Terms of Service
-          </a>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }
