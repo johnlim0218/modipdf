@@ -31,7 +31,7 @@ export default function TermsPage() {
             </h2>
             <p>
               By accessing or using ModiPDF (&quot;the Service&quot;) at
-              modipdf.vercel.app, you agree to be bound by these Terms of
+              modipdf.xyz, you agree to be bound by these Terms of
               Service (&quot;Terms&quot;). If you do not agree with any part of
               these Terms, you may not use the Service.
             </p>

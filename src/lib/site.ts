@@ -1,4 +1,4 @@
-export const SITE_URL = "https://modipdf.vercel.app";
+export const SITE_URL = "https://modipdf.xyz";
 export const SITE_NAME = "ModiPDF";
 
 export const CONTACT_EMAIL = "gwanwoo.john@gmail.com";

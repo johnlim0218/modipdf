@@ -34,7 +34,7 @@ export default function PrivacyPage() {
             <p>
               ModiPDF (&quot;we&quot;, &quot;our&quot;, or &quot;the
               Service&quot;) is a free, browser-based PDF editing tool available
-              at modipdf.vercel.app. We are committed to protecting your privacy.
+              at modipdf.xyz. We are committed to protecting your privacy.
               This Privacy Policy explains what information is collected when
               you use the Service, how it is used, and the choices you have.
             </p>

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Upload } from "lucide-react";
 import SiteHeader from "@/components/site/SiteHeader";
 import SiteFooter from "@/components/site/SiteFooter";
+import { SITE_URL } from "@/lib/site";
 
 interface LandingPageProps {
   onFileSelect: (files: File[]) => void;
@@ -14,7 +15,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
   name: "ModiPDF",
-  url: "https://modipdf.vercel.app",
+  url: SITE_URL,
   description:
     "Free online PDF editor. Merge PDFs, reorder, rotate, and remove pages, and add text, images, shapes, and signatures right in your browser.",
   applicationCategory: "UtilitiesApplication",
